@@ -1,3 +1,10 @@
 body {
   margin: 0;
 }
+
+@font-face {
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+  font-weight: normal;
+  src: url("./fonts/JetBrainsMono-Regular.ttf") format("ttf");
+}
