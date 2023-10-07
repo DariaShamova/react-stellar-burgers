@@ -1,25 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from "./app.module.css";
 import {ingredientPropType} from "../../utils/prop-types";
-
+import {getIngredients} from "../../services/actions/ingredients"; // Наш thunk для запроса данных с сервера
 import { AppHeader } from '../app-header/app-header.jsx';
 import {BurgerIngredients} from "../burger-ingredients/burger-ingredients";
 import {BurgerConstructor} from "../burger-constructor/burger-constructor";
 import Modal from "../modal/modal";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import {OrderDetails} from "../order-details/order-details";
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 
 
 function App() {
-    const[ingredientsData, setIngredientsData] = React.useState({
-        isLoading: false,
-        hasError: false,
-        ingredients: []
-    });
 
-    const [isModalOpen, setIsModalOpen] = React.useState({visible: false});
+    const [isModalOpen, setIsModalOpen] = useState({visible: false});
 
-    const [modalType, setModalType] = React.useState({ingredientModal: false});
+    const [modalType, setModalType] = useState({ingredientModal: false});
+
+    // Вытаскиваем селектором нужные данные из хранилища
+    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
+        state => state.ingredients);
+
+    // Получаем метод dispatch
+    const dispatch = useDispatch();
+
+    useEffect(
+        () => {
+            // Отправляем экшен-функцию
+            if (!ingredients.length) dispatch(getIngredients());
+
+        },
+        [dispatch]
+    );
+
+    // Используем условный рендеринг для разных состояний хранилища
+    if (ingredientsFailed) {
+        return <p>Произошла ошибка при получении данных</p>
+    } else if (ingredientsRequest) {
+        return <p>Загрузка...</p>
+    }
+
+    //Modal - s
 
     const setIngredientModal = () => {
         setModalType({ingredientModal: true});
@@ -29,7 +52,7 @@ function App() {
         setModalType({ingredientModal: false});
     }
 
-    const handleOpenModal = () => {
+    const handleOpenModal = (event) => {
         setIsModalOpen({visible: true})
     };
 
@@ -37,40 +60,32 @@ function App() {
         setIsModalOpen({visible: false})
     };
 
-    const getIngredients = () => {
-        setIngredientsData({...ingredientsData, isLoading: true, hasError: false});
-        fetch('https://norma.nomoreparties.space/api/ingredients')
-            .then(res => res.json())
-            .then(ingredients => setIngredientsData({ ...ingredientsData, ingredients: ingredients.data, isLoading: false }))
-            .catch(e => {
-                setIngredientsData({ ...ingredientsData, hasError: true, isLoading: false });
-            });
-    };
-
-    React.useEffect(() => {
-        getIngredients();
-    }, []);
-
-    const { ingredients, isLoading, hasError } = ingredientsData;
 
     const modal = (
         <Modal onClose={handleCloseModal} header={modalType.ingredientModal && "Детали ингредиента"}>
-            {modalType.ingredientModal ? <IngredientDetails item={ingredients[1]}/> : <OrderDetails/>}
+            {modalType.ingredientModal ? <IngredientDetails/> : <OrderDetails/>}
         </Modal>
     );
+
+    // Modal - e
+
 
     return (
         <div className={styles.app}>
             <AppHeader />
-            <main className={styles.main}>
-                <BurgerIngredients ingredients={ingredients} onOpen={handleOpenModal} handleModalType={setIngredientModal} />
-                <BurgerConstructor onOpen={handleOpenModal} handleModalType={setOrderModal}/>
-                <div style={{overflow: 'hidden'}}>
-                    {isModalOpen.visible && modal}
-                </div>
-            </main>
+            <DndProvider backend={HTML5Backend}>
+                <main className={styles.main}>
+                    <BurgerIngredients ingredients={ingredients} onOpen={handleOpenModal} handleModalType={setIngredientModal} />
+                    <BurgerConstructor onOpen={handleOpenModal} handleModalType={setOrderModal} ingredients={ingredients}/>
+                        {isModalOpen.visible && modal}
+                </main>
+            </DndProvider>
         </div>
     );
 }
 
 export default App;
+
+
+
+

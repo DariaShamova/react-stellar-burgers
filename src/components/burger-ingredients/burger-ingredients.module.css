@@ -7,6 +7,10 @@
     flex-wrap: wrap;
 }
 
+.ingredients__section {
+    width: 50%;
+}
+
 .ingredients__item {
     box-sizing: border-box;
     margin: 0;
@@ -14,6 +18,7 @@
     position: relative;
     text-align: center;
     width: 272px;
+    cursor: grab;
 }
 
 .ingredient__price {
@@ -34,7 +39,7 @@
 }
 
 .scrollwrapper {
-    height: 700px;
+    height: 640px;
     overflow-y: scroll;
 }
 

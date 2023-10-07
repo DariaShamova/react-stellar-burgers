@@ -1,8 +1,13 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {useSelector} from "react-redux";
+import styles from "../order-details/order-details.module.css";
+
 export const OrderDetails = () => {
+    const orderNumber = useSelector((state) => state.order.orderNumber);
+
     return (
-            <div className="mt-30 mb-30" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <p className="text text_type_digits-large">034536</p>
+            <div className={`${styles.order} mt-30 mb-30`}>
+                <p className="text text_type_digits-large">{orderNumber}</p>
                 <p className="text text_type_main-medium pt-8 pb-15">
                     идентификатор заказа
                 </p>

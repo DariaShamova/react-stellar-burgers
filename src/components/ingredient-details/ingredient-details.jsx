@@ -1,7 +1,14 @@
 import styles from "../ingredient-details/ingredient-details.module.css";
 import React from "react";
+import { useSelector } from 'react-redux';
 
-export const IngredientDetails = ({item}) => {
+export function IngredientDetails() {
+    // Вытаскиваем селектором нужные данные из хранилища
+    const store = useSelector(
+        state => state.details);
+
+    const item = store.ingredientDetails;
+
     return (
         <div className={styles.wrapper + " mt-30 mb-30"}>
             <img src={item.image_large} alt={item.name} className="pb-4"/>
