@@ -75,8 +75,8 @@ function App() {
             <AppHeader />
             <DndProvider backend={HTML5Backend}>
                 <main className={styles.main}>
-                    <BurgerIngredients ingredients={ingredients} onOpen={handleOpenModal} handleModalType={setIngredientModal} />
-                    <BurgerConstructor onOpen={handleOpenModal} handleModalType={setOrderModal} ingredients={ingredients}/>
+                    <BurgerIngredients onOpen={handleOpenModal} handleModalType={setIngredientModal} />
+                    <BurgerConstructor onOpen={handleOpenModal} handleModalType={setOrderModal}/>
                         {isModalOpen.visible && modal}
                 </main>
             </DndProvider>

@@ -194,9 +194,13 @@ export const BurgerConstructor = ({onOpen, handleModalType }) => {
     }
 
     const orderClick = () => {
-        onOpen();
-        handleModalType();
-        getOrderNumber()
+        if(buns.length > 0) {
+            onOpen();
+            handleModalType();
+            getOrderNumber()
+        } else {
+            console.log("Ошибка: добавьте булку")
+        }
     }
 
     const [, dropConst] = useDrop(() => ({

@@ -16,21 +16,14 @@ export function getIngredients() {
 
             getIngredientsRequest()
             .then(res => {
-            if (res && res.success) {
                 // В случае успешного получения данных вызываем экшен
                 // для записи полученных данных в хранилище
                 dispatch({
                     type: GET_INGREDIENTS_SUCCESS,
                     ingredients: res.data
                 })
-            } else {
-                // Если произошла ошибка, отправляем соответствующий экшен
-                dispatch({
-                    type: GET_INGREDIENTS_FAILED
-                })
-            }
         }).catch( err => {
-            // Если сервер не вернул данных, также отправляем экшен об ошибке
+            // Если сервер не вернул данных, отправляем экшен об ошибке
             dispatch({
                 type: GET_INGREDIENTS_FAILED
             })

@@ -1,4 +1,5 @@
 import {postOrderRequest} from "../api";
+import {CLEAN_CONSTRUCTOR} from "./dnd";
 export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST';
 export const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS';
 export const POST_ORDER_FAILED = 'POST_ORDER_FAILED';
@@ -15,26 +16,21 @@ export function postOrder(id) {
         // Отправляем данные на сервер
        postOrderRequest(id)
             .then(res => {
-                if (res && res.success) {
                     // В случае успешного получения данных вызываем экшен
                     // для записи полученных данных в хранилище
                     dispatch({
                         type: POST_ORDER_SUCCESS,
                         payload: res.order
                     })
-                    console.log (res.order)
-                } else {
-                    // Если произошла ошибка, отправляем соответствующий экшен
-                    dispatch({
-                        type: POST_ORDER_FAILED
-                    })
-                }
-            }).catch( err => {
+            })
+           .then(() => dispatch({
+               type: CLEAN_CONSTRUCTOR
+           }))
+           .catch( err => {
             // Если сервер не вернул данных, также отправляем экшен об ошибке
             dispatch({
                 type: POST_ORDER_FAILED
             })
         })
     }
-
 }

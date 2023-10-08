@@ -3,9 +3,15 @@ import {useSelector} from "react-redux";
 import styles from "../order-details/order-details.module.css";
 
 export const OrderDetails = () => {
-    const orderNumber = useSelector((state) => state.order.orderNumber);
+    const {postOrderFailed, orderNumber, postOrderRequest } = useSelector((state) => state.order);
 
-    return (
+    // Используем условный рендеринг для разных состояний хранилища
+    if (postOrderFailed) {
+        return <p>Произошла ошибка при получении данных</p>
+    } else if (postOrderRequest) {
+        return <p>Загрузка номера заказа...</p>
+    } else {
+        return (
             <div className={`${styles.order} mt-30 mb-30`}>
                 <p className="text text_type_digits-large">{orderNumber}</p>
                 <p className="text text_type_main-medium pt-8 pb-15">
@@ -19,5 +25,6 @@ export const OrderDetails = () => {
                     Дождитесь готовности на орбитальной станции
                 </p>
             </div>
-    )
+        )
+    }
 }

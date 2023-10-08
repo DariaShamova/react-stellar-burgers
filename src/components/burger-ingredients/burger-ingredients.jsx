@@ -1,15 +1,15 @@
 import React, {useMemo, useRef, useEffect} from 'react';
 import styles from "./burger-ingredients.module.css";
 import { Counter, Tab, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import {getDetailsIngredient} from "../../services/actions/details-ingredient";
+import {addDetails} from "../../services/actions/details-ingredient";
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
-import {SCROLL_TO, SET_TAB} from "../../services/actions/tabs";
+import {scrollTo, setTab} from "../../services/actions/tabs";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../utils/prop-types";
 
-
 const BurgerIngredient = ({ingredient, onOpen, handleModalType}) => {
+
     // Вытаскиваем селектором нужные данные из хранилища
     const { fillings } = useSelector(
         state => state.fillings);
@@ -21,7 +21,7 @@ const BurgerIngredient = ({ingredient, onOpen, handleModalType}) => {
     const handleClick = () => {
         onOpen();
         handleModalType();
-        dispatch(getDetailsIngredient(ingredient));
+        dispatch(addDetails(ingredient));
     }
     const [{ opacity }, ref] = useDrag({
         type: 'ingredient',
@@ -56,19 +56,22 @@ export const BurgerIngredients = (props) => {
 
     const dispatch = useDispatch();
 
+    const ingredients = useSelector(
+        state => state.ingredients.ingredients);
+
     const handleModalType = props.handleModalType;
 
     const onOpen = props.onOpen;
 
-    const buns = props.ingredients.filter((item) => {
+    const buns = ingredients.filter((item) => {
         return item.type === "bun"
     });
 
-    const sauces = props.ingredients.filter((item) => {
+    const sauces = ingredients.filter((item) => {
         return item.type === "sauce"
     });
 
-    const mains = props.ingredients.filter((item) => {
+    const mains = ingredients.filter((item) => {
         return item.type === "main"
     });
 
@@ -94,10 +97,7 @@ export const BurgerIngredients = (props) => {
     useEffect(() => {
         const currents = [bunRef.current, sauceRef.current, mainRef.current];
         const handleTabs = type => {
-            dispatch( {
-                type: SET_TAB,
-                payload: type
-            });
+            dispatch(setTab(type));
         }
         const watcher = new IntersectionObserver(
             (currents) => {
@@ -189,22 +189,9 @@ const SwitchTabs = () => {
     const dispatch = useDispatch();
     const current = useSelector((state) => state.tabs.current);
 
-    const setTab = value => {
-        dispatch({
-            type: SET_TAB,
-            payload: value
-        })
-    }
-
-    const scrollTo = value => {
-        dispatch({
-            type: SCROLL_TO,
-            payload: value
-        })
-    }
     const setCurrent = (value) => {
-        setTab(value);
-        scrollTo(value);
+        dispatch(setTab(value));
+        dispatch(scrollTo(value));
     };
     return (
         <div style={{ display: 'flex' }}>
@@ -226,3 +213,8 @@ BurgerIngredient.propTypes = {
     handleModalType: PropTypes.func.isRequired,
     onOpen: PropTypes.func.isRequired,
 }
+
+BurgerIngredients.propTypes = {
+    handleModalType: PropTypes.func.isRequired,
+    onOpen: PropTypes.func.isRequired,
+};

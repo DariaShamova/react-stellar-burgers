@@ -1,6 +1,6 @@
 import {
     ADD_FILLING,
-    CHANGE_BUN,
+    CHANGE_BUN, CLEAN_CONSTRUCTOR,
     DELETE_INGREDIENT,
     DND_INGREDIENT
 } from "../actions/dnd";
@@ -53,6 +53,13 @@ export const dropTargetReducer = (state = initialState, action) => {
             return {
                 ...state,
                 fillings: result,
+            };
+        }
+        case CLEAN_CONSTRUCTOR: {
+            return {
+                ...state,
+                buns: [],
+                fillings: []
             };
         }
         default: {
