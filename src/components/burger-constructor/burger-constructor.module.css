@@ -1,0 +1,40 @@
+.order {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 40px;
+}
+
+.constructor {
+    width: 50%;
+    padding-top: 100px;
+}
+
+.constructor__section {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+}
+
+.constructor__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.constructor__element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.constructor__fillings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+    height: 440px;
+    overflow-y: scroll;
+}

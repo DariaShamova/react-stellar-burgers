@@ -1,0 +1,45 @@
+.ingredients {
+    list-style-type: none;
+    padding: 0 0 40px 16px;
+    margin: 0;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.ingredients__section {
+    width: 50%;
+}
+
+.ingredients__item {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    width: 272px;
+    cursor: grab;
+}
+
+.ingredient__price {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0 0 4px 0;
+}
+
+.ingredient__image {
+    margin: 0;
+    padding: 0 16px 4px 16px;
+}
+
+.ingredients__name {
+    min-height: 48px;
+}
+
+.scrollwrapper {
+    height: 640px;
+    overflow-y: scroll;
+}
+
