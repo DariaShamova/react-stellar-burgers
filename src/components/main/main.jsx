@@ -13,9 +13,9 @@ import { DndProvider } from 'react-dnd';
 
 export function Main() {
 
-    const [isModalOpen, setIsModalOpen] = useState({visible: false});
-
-    const [modalType, setModalType] = useState({ingredientModal: false});
+    // const [isModalOpen, setIsModalOpen] = useState({visible: false});
+    //
+    // const [modalType, setModalType] = useState({ingredientModal: false});
 
     // Вытаскиваем селектором нужные данные из хранилища
     const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
@@ -40,30 +40,31 @@ export function Main() {
         return <p>Загрузка...</p>
     }
 
+
     //Modal - s
 
-    const setIngredientModal = () => {
-        setModalType({ingredientModal: true});
-    };
+    // const setIngredientModal = () => {
+    //     setModalType({ingredientModal: true});
+    // };
+    //
+    // const setOrderModal = () => {
+    //     setModalType({ingredientModal: false});
+    // }
+    //
+    // const handleOpenModal = () => {
+    //     setIsModalOpen({visible: true})
+    // };
+    //
+    // const handleCloseModal = () => {
+    //     setIsModalOpen({visible: false})
+    // };
 
-    const setOrderModal = () => {
-        setModalType({ingredientModal: false});
-    }
 
-    const handleOpenModal = () => {
-        setIsModalOpen({visible: true})
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen({visible: false})
-    };
-
-
-    const modal = (
-        <Modal onClose={handleCloseModal} header={modalType.ingredientModal && "Детали ингредиента"}>
-            {modalType.ingredientModal ? <IngredientDetails/> : <OrderDetails/>}
-        </Modal>
-    );
+    // const modal = (
+    //     <Modal onClose={handleCloseModal} header={modalType.ingredientModal && "Детали ингредиента"}>
+    //         {modalType.ingredientModal ? <IngredientDetails/> : <OrderDetails/>}
+    //     </Modal>
+    // );
 
     // Modal - e
 
@@ -72,9 +73,9 @@ export function Main() {
         <div>
             <DndProvider backend={HTML5Backend}>
                 <main className={styles.main}>
-                    <BurgerIngredients onOpen={handleOpenModal} handleModalType={setIngredientModal} />
-                    <BurgerConstructor onOpen={handleOpenModal} handleModalType={setOrderModal}/>
-                    {isModalOpen.visible && modal}
+                    <BurgerIngredients />
+                    <BurgerConstructor/>
+                    {/*{isModalOpen.visible && modal}*/}
                 </main>
             </DndProvider>
         </div>

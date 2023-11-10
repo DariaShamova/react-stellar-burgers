@@ -10,15 +10,14 @@ export function userLogin(user) {
         loginRequest(user)
             .then(res => {
                 const { success, refreshToken, accessToken } = res;
-                if (success) {
-                    setCookie("access", accessToken.split("Bearer ")[1]);
-                    setCookie("refresh", refreshToken);
-                    dispatch({
-                        type: LOGIN,
-                        payload: res
-                    })
-                }
+                setCookie("access", accessToken.split("Bearer ")[1]);
+                setCookie("refresh", refreshToken);
+                dispatch({
+                    type: LOGIN,
+                    payload: res
+                })
             })
+            .catch((er) => console.log(er));
     }
 }
 
@@ -31,6 +30,7 @@ export function userLogout(user) {
                         payload: res
                     })
             })
+            .catch((er) => console.log(er));
     }
 }
 

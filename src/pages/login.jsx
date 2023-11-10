@@ -2,9 +2,10 @@ import {useState} from "react";
 import { useDispatch } from "react-redux";
 import styles from "./pages.module.css";
 import {EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import { useSelector } from "react-redux";
 import {userLogin, userLogout} from "../services/actions/login";
+
 
 export function LoginPage() {
     const dispatch = useDispatch();
@@ -40,6 +41,7 @@ export function LoginPage() {
                     <Button htmlType="submit" type="primary" size="medium">
                         Войти
                     </Button>
+                    {login ? <Navigate to="/profile" /> : <Navigate to="/login" />}
                 </form>
                 <div className={`${styles.hint} pb-4`}>
                     <span className="text text_type_main-default text_color_inactive">Вы — новый пользователь?</span>

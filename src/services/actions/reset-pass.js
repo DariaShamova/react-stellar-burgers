@@ -11,5 +11,6 @@ export function resetPassword() {
                     payload: res
                 })
             })
+            .catch((er) => console.log(er));
     }
 }

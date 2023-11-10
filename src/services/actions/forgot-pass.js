@@ -10,5 +10,6 @@ export function restoreForgotPass() {
                     payload: res
                 })
             })
+            .catch((er) => console.log(er));
     }
 }

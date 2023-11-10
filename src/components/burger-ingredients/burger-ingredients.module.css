@@ -43,3 +43,8 @@
     overflow-y: scroll;
 }
 
+.ingredients__link {
+    text-decoration: none;
+    color: inherit;
+}
+

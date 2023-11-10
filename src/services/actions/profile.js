@@ -23,6 +23,7 @@ export function sendProfileInfo() {
                     payload: res
                 })
             })
+            .catch((er) => console.log(er));
     }
 }
 

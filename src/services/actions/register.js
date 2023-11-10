@@ -10,5 +10,6 @@ export function register(user) {
                     payload: res
                 })
             })
+            .catch((er) => console.log(er));
     }
 }
