@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid';
 import { postOrder } from "../../services/actions/order";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../utils/prop-types";
+import {Link} from "react-router-dom";
 
 const BurgerElement = ({ingredient, index, id}) => {
 
@@ -76,7 +77,7 @@ const BurgerElement = ({ingredient, index, id}) => {
     )
 }
 
-export const BurgerConstructor = ({onOpen, handleModalType }) => {
+export const BurgerConstructor = () => {
     const dispatch = useDispatch();
     const addFilling = item => {
         item = {...item, id: nanoid()};
@@ -195,8 +196,6 @@ export const BurgerConstructor = ({onOpen, handleModalType }) => {
 
     const orderClick = () => {
         if(buns.length > 0) {
-            onOpen();
-            handleModalType();
             getOrderNumber()
         } else {
             console.log("Ошибка: добавьте булку")
@@ -207,6 +206,8 @@ export const BurgerConstructor = ({onOpen, handleModalType }) => {
         accept: 'ingredient',
         drop: (ingredient) => dndIngredient(ingredient),
     }));
+
+    const login = useSelector((state) => state.login.login);
 
     return (
         <section  className={styles.constructor} ref={dropTarget}>
@@ -221,9 +222,31 @@ export const BurgerConstructor = ({onOpen, handleModalType }) => {
             </div>
             <div className={styles.order}>
                 <p className='text text_type_digits-medium'>{totalPrice}<CurrencyIcon type="primary"/></p>
-                <Button htmlType="button" type="primary" size="medium" onClick={orderClick}>
-                    Оформить заказ
-                </Button>
+                {/*<Link*/}
+                {/*    to={!login ? "/login" : "/order"}*/}
+                {/*>*/}
+
+                {buns.length > 0 ? (
+                    <Link
+                        to={"/order"}
+                    >
+                        <Button htmlType="button" type="primary" size="medium" onClick={orderClick} disabled={false}>
+                            Оформить заказ
+                        </Button>
+                    </Link>
+                ) : (
+                    <Button disabled={true} htmlType="button" type="primary" size="medium">
+                        Оформить заказ
+                    </Button>
+                )}
+
+                {/*    <Link*/}
+                {/*        to={"/order"}*/}
+                {/*    >*/}
+                {/*    <Button htmlType="button" type="primary" size="medium" onClick={orderClick}>*/}
+                {/*        Оформить заказ*/}
+                {/*    </Button>*/}
+                {/*</Link>*/}
 
             </div>
         </section>
@@ -234,9 +257,4 @@ BurgerElement.propTypes = {
     ingredient: ingredientPropType.isRequired,
     index: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
-};
-
-BurgerConstructor.propTypes = {
-    handleModalType: PropTypes.func.isRequired,
-    onOpen: PropTypes.func.isRequired,
 };

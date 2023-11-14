@@ -7,8 +7,9 @@ import { useDrag } from 'react-dnd';
 import {scrollTo, setTab} from "../../services/actions/tabs";
 import PropTypes from "prop-types";
 import {ingredientPropType} from "../../utils/prop-types";
+import {Link, useLocation} from "react-router-dom";
 
-const BurgerIngredient = ({ingredient, onOpen, handleModalType}) => {
+const BurgerIngredient = ({ingredient}) => {
 
     // Вытаскиваем селектором нужные данные из хранилища
     const { fillings } = useSelector(
@@ -19,8 +20,6 @@ const BurgerIngredient = ({ingredient, onOpen, handleModalType}) => {
     // Получаем метод dispatch
     const dispatch = useDispatch();
     const handleClick = () => {
-        onOpen();
-        handleModalType();
         dispatch(addDetails(ingredient));
     }
     const [{ opacity }, ref] = useDrag({
@@ -41,13 +40,25 @@ const BurgerIngredient = ({ingredient, onOpen, handleModalType}) => {
         [buns, fillings]
     );
 
+    const location = useLocation();
+
     return (
+        // <Link to={{
+        //           pathname: `/ingredients/${ingredient._id}`,
+        //           state: { background: location },
+        //       }}
+        //       className={styles.ingredients__link}
+        // >
+        <Link to={`/ingredients/${ingredient._id}`} state={{ background: location }} className={styles.ingredients__link}>
         <li className={styles.ingredients__item} onClick={handleClick} style={{ opacity }} ref={ref}>
+
             <img className={styles.ingredient__image} src={ingredient.image} alt={ingredient.name}/>
             <p className={styles.ingredient__price}><span className="text text_type_digits-default">{ingredient.price}</span><CurrencyIcon type="primary" /></p>
             <p className={`${styles.ingredients__name} text text_type_main-default`}>{ingredient.name}</p>
             {counter > 0 && <Counter count={counter} size="default" extraClass="m-1" />}
+
         </li>
+        </Link>
     );
 }
 
@@ -58,10 +69,6 @@ export const BurgerIngredients = (props) => {
 
     const ingredients = useSelector(
         state => state.ingredients.ingredients);
-
-    const handleModalType = props.handleModalType;
-
-    const onOpen = props.onOpen;
 
     const buns = ingredients.filter((item) => {
         return item.type === "bun"
@@ -109,7 +116,7 @@ export const BurgerIngredients = (props) => {
                         handleTabs("sauces");
                     }
                     if (h.target === mainRef.current) {
-                        handleTabs("mains");;
+                        handleTabs("mains");
                     }
                 });
             },
@@ -141,8 +148,6 @@ export const BurgerIngredients = (props) => {
                                 <BurgerIngredient
                                     ingredient={ingredient}
                                     key={ingredient._id}
-                                    onOpen={onOpen}
-                                    handleModalType={handleModalType}
                                 />
                             )
                         })}
@@ -156,8 +161,6 @@ export const BurgerIngredients = (props) => {
                                 <BurgerIngredient
                                     ingredient={ingredient}
                                     key={ingredient._id}
-                                    onOpen={onOpen}
-                                    handleModalType={handleModalType}
                                 />
                             )
                         })}
@@ -172,8 +175,6 @@ export const BurgerIngredients = (props) => {
                                     ingredient={ingredient}
                                     key={ingredient._id}
                                     id={ingredient._id}
-                                    onOpen={onOpen}
-                                    handleModalType={handleModalType}
                                 />
                             )
                         })}
@@ -210,11 +211,5 @@ const SwitchTabs = () => {
 
 BurgerIngredient.propTypes = {
     ingredient: ingredientPropType.isRequired,
-    handleModalType: PropTypes.func.isRequired,
-    onOpen: PropTypes.func.isRequired,
 }
 
-BurgerIngredients.propTypes = {
-    handleModalType: PropTypes.func.isRequired,
-    onOpen: PropTypes.func.isRequired,
-};
