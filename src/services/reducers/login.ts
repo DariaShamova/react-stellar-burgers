@@ -1,10 +1,15 @@
 import {LOGIN, LOGOUT, TLoginActions} from "../actions/login";
 
-const initialState = {
+type TUserState = {
+    login: null | boolean;
+    logout: boolean;
+};
+
+const initialState: TUserState = {
     login: null,
     logout: false,
-    //user: {},
 };
+
 
 export const loginReducer = (state = initialState, action: TLoginActions) => {
     switch (action.type) {

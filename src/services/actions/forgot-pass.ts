@@ -1,4 +1,5 @@
 import {forgotPasswordRequest} from "../api";
+import {ThunkFunc} from "../hooks/hooks";
 export const RESTORE_FORGOT_PASS = 'RESTORE_FORGOT_PASS';
 
 export interface IRESTORE_FORGOT_PASS {
@@ -11,13 +12,13 @@ export const RESTORE_FORGOT_PASS_ACTION = (payload: boolean): IRESTORE_FORGOT_PA
     payload: payload,
 });
 
-export function restoreForgotPass() {
+export const restoreForgotPass: ThunkFunc = () => {
     return function (dispatch: any) {
         forgotPasswordRequest()
             .then(res => {
                 dispatch({
-                    type: RESTORE_FORGOT_PASS,
-                    payload: res
+                    payload: res,
+                    type: RESTORE_FORGOT_PASS
                 })
             })
             .catch((er) => console.log(er));

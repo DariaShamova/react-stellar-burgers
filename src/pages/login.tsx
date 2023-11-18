@@ -6,13 +6,14 @@ import {Link, Navigate} from "react-router-dom";
 import { useSelector } from "react-redux";
 import {userLogin, userLogout} from "../services/actions/login";
 import { FormEventHandler } from "react";
+import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";
 
 
 export function LoginPage() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const login = useSelector((state: any) => state.login.login);
+    const login = useAppSelector((state: any) => state.login.login);
 
     const formLogin: FormEventHandler<HTMLFormElement> = event => {
         event.preventDefault();

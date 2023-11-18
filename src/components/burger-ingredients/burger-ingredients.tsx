@@ -6,6 +6,7 @@ import { useDrag } from 'react-dnd';
 import {scrollTo, setTab} from "../../services/actions/tabs";
 import {Link, useLocation} from "react-router-dom";
 import {TIngredient} from "../../services/actions/dnd";
+import {useAppDispatch} from "../../services/hooks/hooks";
 
 type TProtoIngredient = {
     ingredient: TIngredient;
@@ -63,7 +64,7 @@ const BurgerIngredient: FC<TProtoIngredient> = ({ingredient}) => {
 
 export const BurgerIngredients: FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const ingredients = useSelector(
         (state: any) => state.ingredients.ingredients);
@@ -185,7 +186,7 @@ export const BurgerIngredients: FC = () => {
 }
 
 const SwitchTabs = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const current = useSelector((state: any) => state.tabs.current);
 
     const setCurrent = (value: string) => {

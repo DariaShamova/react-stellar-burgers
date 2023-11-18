@@ -4,17 +4,17 @@ export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST';
 export const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS';
 export const POST_ORDER_FAILED = 'POST_ORDER_FAILED';
 
-interface IPOST_ORDER_REQUEST_ACTION {
+export interface IPOST_ORDER_REQUEST_ACTION {
     readonly type: typeof POST_ORDER_REQUEST;
     readonly payload: boolean
 }
 
-interface IPOST_ORDER_SUCCESS_ACTION {
+export interface IPOST_ORDER_SUCCESS_ACTION {
     readonly type: typeof POST_ORDER_SUCCESS;
     readonly payload: object
 }
 
-interface IPOST_ORDER_FAILED_ACTION {
+export interface IPOST_ORDER_FAILED_ACTION {
     readonly type: typeof POST_ORDER_FAILED;
     readonly payload: boolean
 }

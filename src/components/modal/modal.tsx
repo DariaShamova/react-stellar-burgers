@@ -1,4 +1,4 @@
-import React, {FC, ReactNode} from "react";
+import React, {FC, PropsWithChildren, ReactNode} from "react";
 import ReactDOM from "react-dom";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modal.module.css";
@@ -8,10 +8,9 @@ import PropTypes from "prop-types";
 const modalRoot = document.getElementById("react-modals");
 
 type TModal = {
-    children: ReactNode;
     onClose: () => void;
 };
-export const Modal: FC<TModal> = ({ children, onClose }) => {
+export const Modal: FC<PropsWithChildren<TModal>> = ({ children, onClose }) => {
 
     React.useEffect(() => {
         const onEscape = (evt: KeyboardEvent) => {

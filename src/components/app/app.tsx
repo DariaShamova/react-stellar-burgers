@@ -13,6 +13,11 @@ import {ProtectedRoute} from "../protected-route/protected-route";
 import {IngredientPage} from "../../pages/ingredient";
 import {Modal} from "../modal/modal";
 import {OrderDetails} from "../order-details/order-details";
+import {FeedPage} from "../../pages/feed";
+import {FeedDetails} from "../../pages/feed-details";
+import {ProfileHistory} from "../../pages/profile-history";
+import {ProfileForm} from "../../pages/profile-form";
+import {FeedProfileDetails} from "../../pages/feed-profile-details";
 
 function App() {
     const location = useLocation();
@@ -35,12 +40,26 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
-                <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />}/>} />
+                <Route path="/profile/*" element={<ProtectedRoute element={<ProfilePage />}/>} >
+                    <Route path="" element={<ProfileForm />}/>
+                    <Route path="orders" element={<ProfileHistory/>}/>
+                </Route>
                 <Route path="/ingredients/:id" element={<IngredientPage />}/>
                 <Route path="/order" element={
                            <Modal onClose={closeModal}>
                                <OrderDetails />
                            </Modal>
+                }/>
+                <Route path="/feed" element={<FeedPage />}/>
+                <Route path="/feed/:id" element={
+                    <Modal onClose={closeModal}>
+                        <FeedDetails />
+                    </Modal>
+                }/>
+                <Route path="/profile/orders/:id" element={
+                    <Modal onClose={closeModal}>
+                        <FeedProfileDetails />
+                    </Modal>
                 }/>
             </Routes>
             {background && <Routes>

@@ -4,11 +4,12 @@ import {Link, Navigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {restoreForgotPass} from "../services/actions/forgot-pass";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";
 
 export function ForgotPasswordPage() {
     const [value, setValue] = useState('');
-    const dispatch = useDispatch();
-    const success = useSelector((state: any) => state.password.success);
+    const dispatch = useAppDispatch();
+    const success = useAppSelector((state) => state.password.success);
 
     const getPass = useCallback(
         (event) => {

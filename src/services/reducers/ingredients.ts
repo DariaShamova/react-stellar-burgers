@@ -3,12 +3,20 @@ import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS, TUnionIngredientsActions
 } from '../actions/ingredients';
+import {TIngredient} from "../actions/dnd";
 
-const initialState = {
+type TInitialState = {
+    ingredients: Array<TIngredient> | [],
+    ingredientsRequest: boolean,
+    ingredientsFailed: boolean
+}
+
+const initialState: TInitialState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false
 };
+
 
 export const ingredientsReducer = (state = initialState, action: TUnionIngredientsActions) => {
     switch (action.type) {

@@ -4,6 +4,7 @@ import {EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-dev
 import {Link, Navigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {register} from "../services/actions/register";
+import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";
 
 export function RegisterPage() {
     const [value, setValue] = useState({
@@ -11,8 +12,8 @@ export function RegisterPage() {
         name: "",
         password: "",
     });
-    const dispatch = useDispatch();
-    const login = useSelector((state: any) => state.registration.success);
+    const dispatch = useAppDispatch();
+    const login = useAppSelector((state) => state.registration.success);
     const userRegister: FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
         const user = {

@@ -1,7 +1,7 @@
 import {registrationRequest} from "../api";
 export const REGISTER = "REGISTER";
 
-type TRegister = {
+export type TRegister = {
     email: string;
     password: string;
     name: string;

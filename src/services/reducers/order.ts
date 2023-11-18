@@ -4,7 +4,17 @@ import {
     POST_ORDER_REQUEST, TUnionOrderActions
 } from "../actions/order";
 
-const orderInitialState = {
+type TOrder = {
+    number: number
+}
+
+type TOrderState = {
+    postOrderFailed: boolean,
+    order: null | TOrder,
+    postOrderRequest: boolean
+};
+
+const orderInitialState: TOrderState = {
     postOrderFailed: false,
     order: null,
     postOrderRequest: false

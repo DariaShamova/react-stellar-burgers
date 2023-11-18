@@ -6,18 +6,18 @@ export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 
-interface IGET_INGREDIENTS_REQUEST_ACTION {
+export interface IGET_INGREDIENTS_REQUEST_ACTION {
     readonly type: typeof GET_INGREDIENTS_REQUEST;
     readonly payload: boolean;
 }
 
-interface IGET_INGREDIENTS_SUCCESS_ACTION {
+export interface IGET_INGREDIENTS_SUCCESS_ACTION {
     readonly type: typeof GET_INGREDIENTS_SUCCESS;
     readonly payload: boolean;
     ingredients: Array<TIngredient>;
 }
 
-interface IGET_INGREDIENTS_FAILED_ACTION {
+export interface IGET_INGREDIENTS_FAILED_ACTION {
     readonly type: typeof GET_INGREDIENTS_FAILED;
     readonly payload: boolean;
 }

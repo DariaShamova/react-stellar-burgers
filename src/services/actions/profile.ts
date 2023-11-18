@@ -11,12 +11,12 @@ export type TPayloadProfile = {
     success: boolean;
     user: TProfile;
 };
-interface IGET_PROFILE_INFO_ACTION {
+export interface IGET_PROFILE_INFO_ACTION {
     readonly type: typeof GET_PROFILE_INFO;
     readonly payload: TPayloadProfile;
 }
 
-interface ISEND_PROFILE_INFO_ACTION {
+export interface ISEND_PROFILE_INFO_ACTION {
     readonly type: typeof SEND_PROFILE_INFO;
     readonly payload: TPayloadProfile;
 }
@@ -37,7 +37,7 @@ export function getProfileInfo() {
 
 export function sendProfileInfo(name: string, email: string, password: string) {
     return function (dispatch: any) {
-        sendProfileRequest()
+        sendProfileRequest(name, email, password)
             .then(res => {
                 dispatch({
                     type: SEND_PROFILE_INFO,
