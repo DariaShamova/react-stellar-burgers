@@ -1,6 +1,11 @@
-import {IREGISTER_ACTION, REGISTER} from "../actions/register";
+import {IREGISTER_ACTION, REGISTER, TRegister} from "../actions/register";
 
-const initialState = {
+export type TRegisterState = {
+    success: boolean;
+    user: TRegister | {};
+};
+
+const initialState: TRegisterState = {
     success: false,
     user: {},
 };

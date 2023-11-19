@@ -1,6 +1,16 @@
 import {GET_PROFILE_INFO, SEND_PROFILE_INFO, TProfileActions} from "../actions/profile";
 
-const initialState = {
+type TProfile = {
+    email: string;
+    name: string;
+};
+
+export type TProfileState = {
+    success: boolean;
+    user: TProfile;
+};
+
+const initialState: TProfileState = {
     success: false,
     user: {
         email: "",

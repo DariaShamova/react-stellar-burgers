@@ -10,16 +10,17 @@ import PropTypes, {number, string} from "prop-types";
 import {ingredientPropType} from "../../utils/prop-types";
 import {Link} from "react-router-dom";
 import {TIngredient} from "../../services/actions/dnd";
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 
 export type TBurgerElement = {
     ingredient: TIngredient;
     index: number;
-    id: string | undefined;
+    id?: string;
 }
 
 const BurgerElement: FC<TBurgerElement> = ({ingredient, index, id}) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const ref = useRef(null);
     //const ingredient = element.ingredient;
     const handleDelete = (ingredient: TIngredient) => {
@@ -86,7 +87,7 @@ const BurgerElement: FC<TBurgerElement> = ({ingredient, index, id}) => {
 
 
 export const BurgerConstructor = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const addFilling = (item: TBurgerElement) => {
         item = {...item, id: nanoid()};
         item.ingredient = {...item.ingredient, id: nanoid()};
@@ -115,11 +116,11 @@ export const BurgerConstructor = () => {
 
 
     // Вытаскиваем селектором нужные данные из хранилища
-    const { fillings } = useSelector(
-        (state: any) => state.fillings);
+    const { fillings } = useAppSelector(
+        (state) => state.fillings);
 
-    const { buns } = useSelector(
-        (state: any) => state.buns);
+    const { buns } = useAppSelector(
+        (state) => state.buns);
 
     const fillingsContent = useMemo(
         () => {
@@ -215,7 +216,7 @@ export const BurgerConstructor = () => {
     //     drop: (ingredient: TIngredient) => dndIngredient(ingredient),
     // }));
 
-    const login = useSelector((state: any) => state.login.login);
+    const login = useAppSelector((state) => state.login.login);
 
     return (
         <section className={styles.constructor__wrapper} ref={dropTarget}>
@@ -260,9 +261,3 @@ export const BurgerConstructor = () => {
         </section>
     )
 }
-
-BurgerElement.propTypes = {
-    ingredient: ingredientPropType.isRequired,
-    index: PropTypes.number.isRequired,
-    id: PropTypes.string.isRequired,
-};

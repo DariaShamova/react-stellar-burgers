@@ -1,9 +1,10 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import {useSelector} from "react-redux";
 import styles from "../order-details/order-details.module.css";
+import {useAppSelector} from "../../services/hooks/hooks";
 
 export const OrderDetails = () => {
-    const {postOrderFailed, order, postOrderRequest } = useSelector((state: any) => state.order);
+    const {postOrderFailed, order, postOrderRequest } = useAppSelector((state: any) => state.order);
     const orderNumber = order.number;
 
     // Используем условный рендеринг для разных состояний хранилища

@@ -5,9 +5,10 @@ import {Link, Navigate, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {resetPassword} from "../services/actions/reset-pass";
 import {RESTORE_FORGOT_PASS_ACTION} from "../services/actions/forgot-pass";
+import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";
 
 export function ResetPasswordPage() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [value, setValue] = useState({
         password: "",
         token: "",
@@ -17,9 +18,9 @@ export function ResetPasswordPage() {
         dispatch(resetPassword());
     };
 
-    const success = useSelector((state: any) => state.newPassword.success);
-    const successForgot = useSelector(
-        (state: any) => state.password.success
+    const success = useAppSelector((state) => state.newPassword.success);
+    const successForgot = useAppSelector(
+        (state) => state.password.success
     );
     const navigate = useNavigate();
 

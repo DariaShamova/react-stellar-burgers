@@ -8,6 +8,7 @@ import {Modal} from "../modal/modal";
 import {OrderDetails} from "../order-details/order-details";
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 
 
 export function Main() {
@@ -17,11 +18,11 @@ export function Main() {
     // const [modalType, setModalType] = useState({ingredientModal: false});
 
     // Вытаскиваем селектором нужные данные из хранилища
-    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-        (state: any) => state.ingredients);
+    const { ingredients, ingredientsRequest, ingredientsFailed } = useAppSelector(
+        (state) => state.ingredients);
 
     // Получаем метод dispatch
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(
         () => {

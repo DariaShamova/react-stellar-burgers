@@ -3,7 +3,12 @@ import {
     SCROLL_TO, TTabActions
 } from '../actions/tabs';
 
-const initialState = {
+type TTabState = {
+    current: string;
+    next: string;
+};
+
+const initialState: TTabState = {
     current: 'buns',
     next: ''
 };

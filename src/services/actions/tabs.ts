@@ -1,12 +1,12 @@
 export const SET_TAB = "SET_TAB";
 export const SCROLL_TO = "SCROLL_TO";
 
-interface ISET_TAB_ACTION {
+export interface ISET_TAB_ACTION {
     readonly type: typeof SET_TAB;
     readonly payload: string;
 }
 
-interface ISCROLL_TO_ACTION {
+export interface ISCROLL_TO_ACTION {
     readonly type: typeof SCROLL_TO;
     readonly payload: string;
 }

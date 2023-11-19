@@ -4,13 +4,14 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {getIngredients} from "../services/actions/ingredients";
 import {TIngredient} from "../services/actions/dnd";
+import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";
 
 export function IngredientPage() {
     const {id} = useParams();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const {ingredients, ingredientsRequest, ingredientsFailed} = useSelector(
-        (state: any) => state.ingredients);
+    const {ingredients, ingredientsRequest, ingredientsFailed} = useAppSelector(
+        (state) => state.ingredients);
 
     useEffect(
         () => {

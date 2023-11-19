@@ -13,7 +13,7 @@ export function AppHeader() {
                     <BurgerIcon type="primary" />
                     <p className="text text_type_main-default">Конструктор</p>
                 </Link>
-                <Link to="/lenta" className={`${styles.navigation__link} p-5`}>
+                <Link to="/feed" className={`${styles.navigation__link} p-5`}>
                     <ListIcon type="secondary" />
                     <p className="text text_type_main-default text_color_inactive">Лента заказов</p>
                 </Link>

@@ -1,6 +1,10 @@
 import {IRESET_PASS_ACTION, RESET_PASS} from "../actions/reset-pass";
 
-const initialState = {
+type TResetState = {
+    success: boolean;
+};
+
+const initialState: TResetState = {
     success: false
 };
 
