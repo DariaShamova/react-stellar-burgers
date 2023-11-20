@@ -1,13 +1,10 @@
 import styles from "./burger-constructor.module.css";
 import {ConstructorElement, CurrencyIcon, Button, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {FC, useMemo, useRef} from "react";
-import { useDispatch, useSelector } from 'react-redux';
 import { useDrop, useDrag } from 'react-dnd';
 import { ADD_FILLING, CHANGE_BUN, DELETE_INGREDIENT, dndIngredient  } from "../../services/actions/dnd";
 import { nanoid } from 'nanoid';
 import { postOrder } from "../../services/actions/order";
-import PropTypes, {number, string} from "prop-types";
-import {ingredientPropType} from "../../utils/prop-types";
 import {Link} from "react-router-dom";
 import {TIngredient} from "../../services/actions/dnd";
 import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
@@ -124,7 +121,7 @@ export const BurgerConstructor = () => {
 
     const fillingsContent = useMemo(
         () => {
-            return fillings.map ((item: TIngredient, index: number) => {
+            return fillings.map ((item, index) => {
                 return (
                     <BurgerElement ingredient={item} key={item.id} index={index} id={item.id} />
                 );
@@ -138,7 +135,7 @@ export const BurgerConstructor = () => {
 
     const bunsContentTop = useMemo(
         () => {
-            return buns.map ((ingredient: TIngredient) => {
+            return buns.map ((ingredient) => {
                 return (
                     <ConstructorElement
                         key={ingredient.id}
@@ -156,7 +153,7 @@ export const BurgerConstructor = () => {
 
     const bunsContentBottom = useMemo(
         () => {
-            return buns.map ((ingredient: TIngredient) => {
+            return buns.map ((ingredient) => {
                 return (
                     <ConstructorElement
                         key={ingredient.id}
@@ -175,12 +172,12 @@ export const BurgerConstructor = () => {
     const totalPrice = useMemo(
         () => {
             const bunsPrice = buns.reduce(
-                function(sum: number, currentItem: TIngredient) {
+                function(sum, currentItem) {
                     return sum + currentItem.price
                 }, 0
             );
             const fillingsPrice = fillings.reduce(
-                function(sum: number, currentItem: TIngredient) {
+                function(sum, currentItem) {
                     return sum + currentItem.price
                 }, 0
             );
@@ -192,8 +189,8 @@ export const BurgerConstructor = () => {
 
     const totalId = useMemo(
         () => {
-            const bunsId =  buns.map((item: TIngredient) => item._id);
-            const fillingsId = fillings.map((item: TIngredient) => item._id);
+            const bunsId =  buns.map((item) => item._id);
+            const fillingsId = fillings.map((item) => item._id);
             return [...bunsId, ...fillingsId]
         },
         [buns, fillings]

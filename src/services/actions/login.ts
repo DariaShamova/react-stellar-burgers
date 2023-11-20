@@ -21,26 +21,37 @@ export interface ILOGOUT_ACTION {
     readonly payload: boolean;
 }
 
+export const LOGIN_ACTION = (payload: boolean): ILOGIN_ACTION => ({
+    type: LOGIN,
+    payload: payload,
+});
+
+export const LOGOUT_ACTION = (payload: boolean): ILOGOUT_ACTION => ({
+    type: LOGOUT,
+    payload: payload,
+});
+
 export type TLoginActions = ILOGIN_ACTION | ILOGOUT_ACTION;
 
 export const userLogin: ThunkFunc = (user: TLogin) => {
-    return function (dispatch: any) {
+    return function (dispatch: ThunkFunc) {
         loginRequest(user)
             .then(res => {
-                const { refreshToken, accessToken } = res;
+                const { success, refreshToken, accessToken } = res;
                 setCookie("access", accessToken.split("Bearer ")[1]);
                 setCookie("refresh", refreshToken);
+                sessionStorage.setItem("login-data", JSON.stringify(res));
                 dispatch({
                     type: LOGIN,
-                    payload: res
+                    payload: success
                 })
             })
             .catch((er) => console.log(er));
     }
 }
 
-export function userLogout() {
-    return function (dispatch: any) {
+export const userLogout: ThunkFunc = () => {
+    return function (dispatch: ThunkFunc) {
         logoutRequest()
             .then(res => {
                 dispatch({

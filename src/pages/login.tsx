@@ -1,19 +1,20 @@
 import {useState} from "react";
-import { useDispatch } from "react-redux";
 import styles from "./pages.module.css";
 import {EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Navigate} from "react-router-dom";
-import { useSelector } from "react-redux";
+import {Link, Navigate, useLocation} from "react-router-dom";
 import {userLogin, userLogout} from "../services/actions/login";
 import { FormEventHandler } from "react";
 import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";
+import {useForm} from "../services/hooks/useForm";
 
 
 export function LoginPage() {
     const dispatch = useAppDispatch();
+    const login = useAppSelector((state) => state.login.login);
     const [password, setPassword] = useState("");
+    const {values, handleChange, setValues} = useForm({});
     const [email, setEmail] = useState("");
-    const login = useAppSelector((state: any) => state.login.login);
+
 
     const formLogin: FormEventHandler<HTMLFormElement> = event => {
         event.preventDefault();
@@ -23,6 +24,13 @@ export function LoginPage() {
         };
         dispatch(userLogin(user));
     }
+
+    const location = useLocation();
+    const from = location.state?.from || '/';
+    if (login) {
+        return <Navigate to={ from }   />;
+     }
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -43,7 +51,7 @@ export function LoginPage() {
                     <Button htmlType="submit" type="primary" size="medium">
                         Войти
                     </Button>
-                    {login ? <Navigate to="/profile" /> : <Navigate to="/login" />}
+                    {/*{login ? <Navigate to="/profile" /> : <Navigate to="/login" />}*/}
                 </form>
                 <div className={`${styles.hint} pb-4`}>
                     <span className="text text_type_main-default text_color_inactive">Вы — новый пользователь?</span>

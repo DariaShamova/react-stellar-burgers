@@ -1,11 +1,10 @@
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import {useSelector} from "react-redux";
 import styles from "../order-details/order-details.module.css";
 import {useAppSelector} from "../../services/hooks/hooks";
 
 export const OrderDetails = () => {
-    const {postOrderFailed, order, postOrderRequest } = useAppSelector((state: any) => state.order);
-    const orderNumber = order.number;
+    const {postOrderFailed, order, postOrderRequest } = useAppSelector((state) => state.order);
+    console.log(order);
 
     // Используем условный рендеринг для разных состояний хранилища
     if (postOrderFailed) {
@@ -16,7 +15,7 @@ export const OrderDetails = () => {
         return (
             <div className={`${styles.order} mt-30 mb-30`}>
                 <p className="text text_type_digits-large">
-                    {orderNumber}
+                    {order}
                 </p>
                 <p className="text text_type_main-medium pt-8 pb-15">
                     идентификатор заказа
@@ -29,6 +28,7 @@ export const OrderDetails = () => {
                     Дождитесь готовности на орбитальной станции
                 </p>
             </div>
+
         )
     }
 }

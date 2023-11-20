@@ -10,7 +10,7 @@ export type TProfileState = {
     user: TProfile;
 };
 
-const initialState: TProfileState = {
+export const initialState: TProfileState = {
     success: false,
     user: {
         email: "",

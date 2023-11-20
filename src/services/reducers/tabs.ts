@@ -8,8 +8,8 @@ type TTabState = {
     next: string;
 };
 
-const initialState: TTabState = {
-    current: 'buns',
+export const initialState: TTabState = {
+    current: '',
     next: ''
 };
 

@@ -1,14 +1,8 @@
-import React, {useState, useEffect, useCallback, FormEventHandler, FC} from "react";
+import React, {useCallback, FC} from "react";
 import styles from "./pages.module.css";
-import {Input, EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, NavLink, Outlet, Route, Routes} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {sendProfileInfo} from "../services/actions/profile";
-import {userLogin, userLogout} from "../services/actions/login";
-import {ProfileForm} from "./profile-form";
+import {Link, Outlet} from "react-router-dom";
+import {userLogout} from "../services/actions/login";
 import {useAppDispatch} from "../services/hooks/hooks";
-import {IngredientPage} from "./ingredient";
-import {ProfileHistory} from "./profile-history";
 
 export const ProfilePage: FC = () => {
     const dispatch = useAppDispatch();

@@ -1,6 +1,5 @@
 import styles from "./pages.module.css";
 import { FC, useMemo } from "react";
-
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -16,13 +15,17 @@ export const FeedProfileDetails: FC = () => {
         (state) => state.ingredients.ingredients
     );
 
-    const data = useAppSelector((state: any) => state.wsprofile.orders);
+    const data = useAppSelector((state) => state.wsprofile.orders);
 
     const { id } = useParams<{ id: string }>();
 
     const orderData = useMemo(() => {
-        return data.find((el: any) => el._id === id);
+        return data.find((el) => el._id === id);
     }, [data, id]);
+
+    if (!orderData) {
+        return null;
+    }
 
     const detailArrs = () => {
         return ingredients.filter((el) => orderData?.ingredients.includes(el._id));
@@ -30,12 +33,12 @@ export const FeedProfileDetails: FC = () => {
 
     const detailArr = detailArrs();
 
-    const ordPrice = orderData?.ingredients.map((el: any) => {
+    const ordPrice = orderData?.ingredients.map((el) => {
         return ingredients.find((elem) => elem._id === el);
     });
 
     const reducePrice = ordPrice?.reduce(
-        (acc: any, item: any) => acc + item.price,
+        (acc: number, item: any) => acc + item.price,
         0
     );
 
@@ -73,7 +76,7 @@ export const FeedProfileDetails: FC = () => {
                                             styles.details__grow + " text text_type_digits-default mr-2"
                                         }
                                     >
-                                        {ordPrice?.filter((it: any) => it._id === el._id).length}x
+                                        {ordPrice?.filter((it) => it?._id === el._id).length}x
                                         {el.price}
                                     </div>
                                     <CurrencyIcon type="primary" />

@@ -1,6 +1,7 @@
 import {
     ADD_FILLING,
-    CHANGE_BUN, CLEAN_CONSTRUCTOR,
+    CHANGE_BUN,
+    CLEAN_CONSTRUCTOR,
     DELETE_INGREDIENT,
     DND_INGREDIENT
 } from "../actions/dnd";
@@ -12,7 +13,7 @@ type TInitialState = {
     fillings: Array<TIngredient>
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
     buns: [],
     fillings: []
 };

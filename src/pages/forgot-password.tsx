@@ -1,7 +1,6 @@
 import {useCallback, useState} from "react";
 import styles from "./pages.module.css";
 import {Link, Navigate} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import {restoreForgotPass} from "../services/actions/forgot-pass";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";

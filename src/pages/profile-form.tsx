@@ -1,7 +1,6 @@
 import {useState, useEffect, useCallback, FormEventHandler} from "react";
 import styles from "./pages.module.css";
 import {Input, EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
 import {sendProfileInfo} from "../services/actions/profile";
 import {userLogin, userLogout} from "../services/actions/login";
 import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";
@@ -22,7 +21,7 @@ export function ProfileForm() {
             email: userEmail,
             password: "",
         });
-    }, [userEmail, userName]);
+    }, [userName, userEmail]);
 
     const saveProfile: FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
@@ -34,10 +33,6 @@ export function ProfileForm() {
             password: "",
         });
     };
-
-    const logoutProfile = useCallback(() => {
-        dispatch(userLogout());
-    }, [dispatch]);
 
     const removeInfo = () => {
         setValue({
@@ -73,7 +68,6 @@ export function ProfileForm() {
                         }
                         value={value.password}
                         name={'password'}
-                        icon="EditIcon"
                         placeholder="Пароль"
                     />
                     <div className={styles.profile__buttons}>

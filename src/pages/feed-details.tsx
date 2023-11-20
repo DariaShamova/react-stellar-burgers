@@ -1,25 +1,36 @@
 import styles from "./pages.module.css";
 import { FC, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useAppSelector, useAppDispatch } from "../services/hooks/hooks";
-import {WS_START_ACTION} from "../services/actions/websocket";
+import {WS_START_ACTION, WS_STOP_ACTION} from "../services/actions/websocket";
 
 export const FeedDetails: FC = () => {
-    const location = useLocation();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(WS_START_ACTION());
+        return () => {
+            dispatch(WS_STOP_ACTION());
+        };
+    }, []);
+
     const ingredients = useAppSelector(
         (state) => state.ingredients.ingredients
     );
 
-    const data = useAppSelector((state: any) => state.websocket.orders);
+    const data = useAppSelector((state) => state.websocket.orders);
 
     const { id } = useParams<{ id: string }>();
 
     const orderData = useMemo(() => {
-        return data.find((el: any) => el._id === id);
+        return data.find((el) => el._id === id);
     }, [data, id]);
+
+    if (!orderData) {
+        return null;
+    }
 
     const detailArrs = () => {
         return ingredients.filter((el) => orderData?.ingredients.includes(el._id));
@@ -27,20 +38,11 @@ export const FeedDetails: FC = () => {
 
     const detailArr = detailArrs();
 
-    const ordPrice = orderData?.ingredients.map((el: any) => {
+    const ordPrice = orderData?.ingredients.map((el) => {
         return ingredients.find((elem) => elem._id === el);
     });
 
-    console.log(ordPrice);
-
-    const reducePrice = ordPrice?.reduce(
-        (acc: any, item: any) => acc + item.price,
-        0
-    );
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(WS_START_ACTION());
-    }, []);
+    const reducePrice = ordPrice?.reduce((acc, item: any) => acc + item.price, 0);
 
     return (
         ingredients && (
@@ -63,7 +65,7 @@ export const FeedDetails: FC = () => {
                         detailArr.map((el) => {
                             return (
                                 <div key={el._id} className={styles.details__scrollwrapper}>
-                                    <img className={styles.card__image} src={el.image_mobile} />
+                                    <img className={styles.card__image} src={el.image_mobile} alt={""}/>
                                     <div
                                         className={
                                             styles.details__name + " text text_type_main-default ml-6"
