@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import styles from "./app.module.css";
 import {AppHeader} from "../app-header/app-header";
 import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
@@ -34,6 +34,10 @@ function App() {
         navigate(-1);
     }
 
+    const closeModalOrder = () => {
+        navigate('/');
+    }
+
     // Вытаскиваем селектором нужные данные из хранилища
     const { ingredients, ingredientsRequest, ingredientsFailed } = useAppSelector(
         (state) => state.ingredients);
@@ -62,7 +66,7 @@ function App() {
         <div className={styles.app}>
             <AppHeader />
             <Routes location={background || location}>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home/>} />
                 <Route path="*" element={<NotFound404 />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
@@ -73,11 +77,9 @@ function App() {
                     <Route path="orders" element={<ProfileHistory/>}/>
                 </Route>
                 <Route path="/ingredients/:id" element={<IngredientPage />}/>
-                <Route path="/order" element={
-                           <Modal onClose={closeModal}>
-                               <OrderDetails />
-                           </Modal>
-                }/>
+                <Route path="/order" element={<ProtectedRoute element={<Modal onClose={closeModalOrder}>
+                    <OrderDetails />
+                </Modal>}/>}/>
                 <Route path="/feed" element={<FeedPage />}/>
                 <Route path="/feed/:id" element={
                         <FeedDetails />
@@ -97,12 +99,9 @@ function App() {
                         <FeedDetails />
                     </Modal>
                 }/>
-                <Route path="/profile/orders/:id" element={
-                    <Modal onClose={closeModal}>
-                        <FeedProfileDetails />
-                    </Modal>
-                }/>
-
+                <Route path="/profile/orders/:id" element={<ProtectedRoute element={<Modal onClose={closeModalOrder}>
+                    <FeedProfileDetails />
+                </Modal>}/>}/>
             </Routes>}
         </div>
     );

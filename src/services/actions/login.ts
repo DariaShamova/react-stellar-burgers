@@ -34,7 +34,7 @@ export const LOGOUT_ACTION = (payload: boolean): ILOGOUT_ACTION => ({
 export type TLoginActions = ILOGIN_ACTION | ILOGOUT_ACTION;
 
 export const userLogin: ThunkFunc = (user: TLogin) => {
-    return function (dispatch: ThunkFunc) {
+    return function (dispatch) {
         loginRequest(user)
             .then(res => {
                 const { success, refreshToken, accessToken } = res;

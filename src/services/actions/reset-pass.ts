@@ -9,7 +9,7 @@ export interface IRESET_PASS_ACTION {
 }
 
 export const resetPassword: ThunkFunc = () => {
-    return function (dispatch: ThunkFunc) {
+    return function (dispatch) {
         resetPasswordRequest()
             .then(res => {
                 dispatch({

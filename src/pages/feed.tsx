@@ -114,11 +114,14 @@ export const Cards: FC<TCards> = ({ card }) => {
         return ingResult.reduce((acc, item) => acc + item.price, 0);
     };
 
+
     return (
         <div>
             <Link to={location.pathname === "/profile/orders"
                     ? `/profile/orders/${card._id}`
                     : `/feed/${card._id}`} state={{ background: location }} className={styles.card}>
+
+                {/*<Link to={`/feed/${card._id}`} state={{ background: location }} className={styles.card}>*/}
 
                 <div className={styles.card__title}>
                     <span className="text text_type_main-default">
@@ -132,6 +135,9 @@ export const Cards: FC<TCards> = ({ card }) => {
                 <div className={styles.card__center}>
                     <div className={styles.card__item}>
                         {ingResult.slice(0, 5).map((el) => (
+                            // <div key={ingResult.indexOf(el)} className={styles.card__wrapper}>
+                            //     <img className={styles.card__image} src={el.image_mobile} />
+                            // </div>
                             <div key={nanoid()} className={styles.card__wrapper}>
                                 <img className={styles.card__image} src={el.image_mobile} />
                             </div>

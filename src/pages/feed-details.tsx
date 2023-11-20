@@ -45,7 +45,6 @@ export const FeedDetails: FC = () => {
     const reducePrice = ordPrice?.reduce((acc, item: any) => acc + item.price, 0);
 
     return (
-        ingredients && (
         <div className={styles.details__wrapper}>
             <div className={styles.details__title}>
         <span className={styles.details__subtitle + " text_type_digits-default"}>
@@ -97,6 +96,6 @@ export const FeedDetails: FC = () => {
                 </div>
             </div>
         </div>
-        ));
+        );
 
 };

@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import {FormEvent, useCallback, useState} from "react";
 import styles from "./pages.module.css";
 import {Link, Navigate} from "react-router-dom";
 import {restoreForgotPass} from "../services/actions/forgot-pass";
@@ -11,7 +11,7 @@ export function ForgotPasswordPage() {
     const success = useAppSelector((state) => state.password.success);
 
     const getPass = useCallback(
-        (event) => {
+        (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             dispatch(restoreForgotPass());
         },

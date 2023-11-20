@@ -1,11 +1,11 @@
 import styles from "./burger-constructor.module.css";
 import {ConstructorElement, CurrencyIcon, Button, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {FC, useMemo, useRef} from "react";
+import React, {Dispatch, FC, SetStateAction, useMemo, useRef} from "react";
 import { useDrop, useDrag } from 'react-dnd';
 import { ADD_FILLING, CHANGE_BUN, DELETE_INGREDIENT, dndIngredient  } from "../../services/actions/dnd";
 import { nanoid } from 'nanoid';
 import { postOrder } from "../../services/actions/order";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {TIngredient} from "../../services/actions/dnd";
 import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 
@@ -82,8 +82,7 @@ const BurgerElement: FC<TBurgerElement> = ({ingredient, index, id}) => {
     )
 }
 
-
-export const BurgerConstructor = () => {
+export const BurgerConstructor: FC = () => {
     const dispatch = useAppDispatch();
     const addFilling = (item: TBurgerElement) => {
         item = {...item, id: nanoid()};
@@ -197,15 +196,11 @@ export const BurgerConstructor = () => {
     );
 
     const getOrderNumber = () => {
-        dispatch(postOrder(totalId))
+        dispatch(postOrder(totalId));
     }
 
     const orderClick = () => {
-        if(buns.length > 0) {
-            getOrderNumber()
-        } else {
-            console.log("Ошибка: добавьте булку")
-        }
+            getOrderNumber();
     }
 
     // const [, dropConst] = useDrop(() => ({
@@ -214,6 +209,7 @@ export const BurgerConstructor = () => {
     // }));
 
     const login = useAppSelector((state) => state.login.login);
+
 
     return (
         <section className={styles.constructor__wrapper} ref={dropTarget}>
@@ -228,14 +224,11 @@ export const BurgerConstructor = () => {
             </div>
             <div className={styles.order}>
                 <p className='text text_type_digits-medium'>{totalPrice}<CurrencyIcon type="primary"/></p>
-                {/*<Link*/}
-                {/*    to={!login ? "/login" : "/order"}*/}
-                {/*>*/}
-
                 {buns.length > 0 ? (
-                    <Link
-                        to={!login ? "/login" : "/order"}
-                    >
+                    // <Link
+                    //     to={!login ? "/login" state={{ from: location}} : "/order"}
+                    // >
+                    <Link to={"/order"}>
                         <Button htmlType="button" type="primary" size="medium" onClick={orderClick} disabled={false}>
                             Оформить заказ
                         </Button>
@@ -245,14 +238,6 @@ export const BurgerConstructor = () => {
                         Оформить заказ
                     </Button>
                 )}
-
-                {/*    <Link*/}
-                {/*        to={"/order"}*/}
-                {/*    >*/}
-                {/*    <Button htmlType="button" type="primary" size="medium" onClick={orderClick}>*/}
-                {/*        Оформить заказ*/}
-                {/*    </Button>*/}
-                {/*</Link>*/}
 
             </div>
         </section>

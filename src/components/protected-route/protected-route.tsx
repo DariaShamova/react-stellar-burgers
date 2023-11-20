@@ -4,8 +4,9 @@ import {useAppSelector} from "../../services/hooks/hooks";
 
 export const ProtectedRoute: FC<RouteProps> = (props) => {
     const isLoggedIn = useAppSelector((state) => state.login.login);
+    const location = useLocation();
     if (!isLoggedIn) {
-        return <Navigate to="/login"/>;
+        return <Navigate to="/login" state={{ from: location}}/>;
     }
     return <>{props.element}</>;
 }

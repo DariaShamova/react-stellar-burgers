@@ -13,7 +13,7 @@ export const RESTORE_FORGOT_PASS_ACTION = (payload: boolean): IRESTORE_FORGOT_PA
 });
 
 export const restoreForgotPass: ThunkFunc = () => {
-    return function (dispatch: ThunkFunc) {
+    return function (dispatch) {
         forgotPasswordRequest()
             .then(res => {
                 dispatch({

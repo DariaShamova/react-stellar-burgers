@@ -1,9 +1,10 @@
-import React from "react";
+import React, {Dispatch, FC, SetStateAction} from "react";
 import { Main } from "../components/main/main";
 
-export function Home() {
+
+export const Home = () => {
     return (
-            <Main />
+        <Main/>
     );
-}
+};
 

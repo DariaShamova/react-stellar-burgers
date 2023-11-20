@@ -18,7 +18,7 @@ export interface IREGISTER_ACTION {
 }
 
 export const register: ThunkFunc = (user: TRegister) => {
-    return function (dispatch: ThunkFunc) {
+    return function (dispatch) {
         registrationRequest(user)
             .then(res => {
                 dispatch({

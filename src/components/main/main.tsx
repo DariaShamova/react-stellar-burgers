@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {Dispatch, FC, SetStateAction, useEffect, useState} from 'react';
 import styles from "./main.module.css";
 import {getIngredients} from "../../services/actions/ingredients"; // Наш thunk для запроса данных с сервера
 import {BurgerIngredients} from "../burger-ingredients/burger-ingredients";
@@ -10,7 +10,7 @@ import { DndProvider } from 'react-dnd';
 import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 import {LOGIN_ACTION} from "../../services/actions/login";
 
-export function Main() {
+export const Main = () => {
     return (
         <div>
             <DndProvider backend={HTML5Backend}>
@@ -21,4 +21,4 @@ export function Main() {
             </DndProvider>
         </div>
     );
-}
+};

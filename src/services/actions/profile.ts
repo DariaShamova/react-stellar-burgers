@@ -25,7 +25,7 @@ export interface ISEND_PROFILE_INFO_ACTION {
 export type TProfileActions = IGET_PROFILE_INFO_ACTION | ISEND_PROFILE_INFO_ACTION;
 
 export const getProfileInfo: ThunkFunc = () => {
-    return function (dispatch: ThunkFunc) {
+    return function (dispatch) {
         getProfileRequest()
             .then(res => {
                 dispatch({
@@ -35,8 +35,8 @@ export const getProfileInfo: ThunkFunc = () => {
             })
     }
 }
-export const sendProfileInfo = (name: string, email: string, password: string) => {
-    return function (dispatch: ThunkFunc) {
+export const sendProfileInfo: ThunkFunc = (name: string, email: string, password: string) => {
+    return function (dispatch) {
         sendProfileRequest(name, email, password)
             .then(res => {
                 dispatch({

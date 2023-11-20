@@ -1,11 +1,12 @@
 import styles from "./pages.module.css";
-import { FC, useMemo } from "react";
+import {FC, useEffect, useMemo} from "react";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { getCookie } from "../utils/cookies";
 import { useAppSelector, useAppDispatch } from "../services/hooks/hooks";
+import {WS_START_PROFILE_ACTION} from "../services/actions/websocket";
 
 export const FeedProfileDetails: FC = () => {
     const dispatch = useAppDispatch();
@@ -23,10 +24,6 @@ export const FeedProfileDetails: FC = () => {
         return data.find((el) => el._id === id);
     }, [data, id]);
 
-    if (!orderData) {
-        return null;
-    }
-
     const detailArrs = () => {
         return ingredients.filter((el) => orderData?.ingredients.includes(el._id));
     };
@@ -38,12 +35,16 @@ export const FeedProfileDetails: FC = () => {
     });
 
     const reducePrice = ordPrice?.reduce(
-        (acc: number, item: any) => acc + item.price,
+        (acc: any, item: any) => acc + item.price,
         0
     );
 
+    useEffect(() => {
+        const token = getCookie("access");
+        dispatch(WS_START_PROFILE_ACTION(token));
+    }, []);
+
     return (
-        ingredients && (
         <div className={styles.details__wrapper}>
             <div className={styles.details__title}>
         <span className={styles.details__subtitle + " text_type_digits-default"}>
@@ -86,7 +87,7 @@ export const FeedProfileDetails: FC = () => {
                 </div>
             </div>
             <div className={styles.details__price + " mt-10"}>
-                <FormattedDate date={new Date(orderData.createdAt)} />
+                {/*<FormattedDate date={new Date(orderData?.createdAt)}/>*/}
                 <div className={styles.card__center}>
                     <div className="text text_type_digits-default mr-2">
                         {reducePrice}
@@ -95,5 +96,5 @@ export const FeedProfileDetails: FC = () => {
                 </div>
             </div>
         </div>
-    ));
+    );
 };
