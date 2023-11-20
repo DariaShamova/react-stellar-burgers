@@ -63,7 +63,7 @@ function App() {
             <AppHeader />
             <Routes location={background || location}>
                 <Route path="/" element={<Home />} />
-                <Route path="/*" element={<NotFound404 />} />
+                <Route path="*" element={<NotFound404 />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
