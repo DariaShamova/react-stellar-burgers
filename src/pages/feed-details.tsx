@@ -44,6 +44,10 @@ export const FeedDetails: FC = () => {
 
     const reducePrice = ordPrice?.reduce((acc, item: any) => acc + item.price, 0);
 
+    if (!orderData) {
+        return <p className={styles.text__center}>Загрузка данных...</p>
+    }
+
     return (
         <div className={styles.details__wrapper}>
             <div className={styles.details__title}>

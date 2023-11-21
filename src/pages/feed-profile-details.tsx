@@ -37,11 +37,16 @@ export const FeedProfileDetails: FC = () => {
         (acc: any, item: any) => acc + item.price,
         0
     );
+
     const dispatch = useAppDispatch();
     useEffect(() => {
         const token = getCookie("access");
         dispatch(WS_START_PROFILE_ACTION(token));
     }, []);
+
+    if (!orderData) {
+            return <p className={styles.text__center}>Загрузка данных...</p>
+        }
 
     return (
         <div className={styles.details__wrapper}>
