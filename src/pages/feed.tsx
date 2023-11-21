@@ -134,11 +134,8 @@ export const Cards: FC<TCards> = ({ card }) => {
                 <span className="text text_type_main-medium">{card.name}</span>
                 <div className={styles.card__center}>
                     <div className={styles.card__item}>
-                        {ingResult.slice(0, 5).map((el) => (
-                            // <div key={ingResult.indexOf(el)} className={styles.card__wrapper}>
-                            //     <img className={styles.card__image} src={el.image_mobile} />
-                            // </div>
-                            <div key={nanoid()} className={styles.card__wrapper}>
+                        {ingResult.slice(0, 5).map((el, index) => (
+                            <div key={index} className={styles.card__wrapper}>
                                 <img className={styles.card__image} src={el.image_mobile} />
                             </div>
                         ))}

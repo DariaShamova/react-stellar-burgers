@@ -72,14 +72,14 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
-                <Route path="/profile/*" element={<ProtectedRoute element={<ProfilePage />}/>} >
+                <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />}/>} >
                     <Route path="" element={<ProfileForm />}/>
                     <Route path="orders" element={<ProfileHistory/>}/>
                 </Route>
                 <Route path="/ingredients/:id" element={<IngredientPage />}/>
-                <Route path="/order" element={<ProtectedRoute element={<Modal onClose={closeModalOrder}>
+                <Route path="/order" element={<Modal onClose={closeModalOrder}>
                     <OrderDetails />
-                </Modal>}/>}/>
+                </Modal>}/>
                 <Route path="/feed" element={<FeedPage />}/>
                 <Route path="/feed/:id" element={
                         <FeedDetails />
@@ -99,9 +99,12 @@ function App() {
                         <FeedDetails />
                     </Modal>
                 }/>
-                <Route path="/profile/orders/:id" element={<ProtectedRoute element={<Modal onClose={closeModalOrder}>
+                <Route path="/profile/orders/:id" element={<ProtectedRoute element={<Modal onClose={closeModal}>
                     <FeedProfileDetails />
                 </Modal>}/>}/>
+                {/*<Route path="/profile/orders/:id" element={<Modal onClose={closeModal}>*/}
+                {/*    <FeedProfileDetails />*/}
+                {/*</Modal>}/>*/}
             </Routes>}
         </div>
     );

@@ -200,7 +200,7 @@ export const BurgerConstructor: FC = () => {
     }
 
     const orderClick = () => {
-            getOrderNumber();
+            if(login) {getOrderNumber()};
     }
 
     // const [, dropConst] = useDrop(() => ({
@@ -225,10 +225,9 @@ export const BurgerConstructor: FC = () => {
             <div className={styles.order}>
                 <p className='text text_type_digits-medium'>{totalPrice}<CurrencyIcon type="primary"/></p>
                 {buns.length > 0 ? (
-                    // <Link
-                    //     to={!login ? "/login" state={{ from: location}} : "/order"}
-                    // >
-                    <Link to={"/order"}>
+                    <Link
+                        to={!login ? "/login"  : "/order"}
+                    >
                         <Button htmlType="button" type="primary" size="medium" onClick={orderClick} disabled={false}>
                             Оформить заказ
                         </Button>
