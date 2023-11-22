@@ -42,7 +42,10 @@ export const getIngredientsRequest =  () => request('ingredients');
 
 export const postOrderRequest = (id: string[]) => {
     return request(`orders`, {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            authorization: "Bearer " + getCookie("access"),
+            "Content-Type": "application/json",
+        },
         method: 'POST',
         body: JSON.stringify( {
             ingredients: id

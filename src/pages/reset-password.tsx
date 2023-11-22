@@ -2,7 +2,6 @@ import {FormEventHandler, useEffect, useState} from "react";
 import styles from "./pages.module.css";
 import {EmailInput, Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Navigate, useNavigate} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import {resetPassword} from "../services/actions/reset-pass";
 import {RESTORE_FORGOT_PASS_ACTION} from "../services/actions/forgot-pass";
 import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";
@@ -24,7 +23,7 @@ export function ResetPasswordPage() {
     );
     const navigate = useNavigate();
 
-    useEffect((): any => {
+    useEffect(() => {
         return () => {
             dispatch(RESTORE_FORGOT_PASS_ACTION(false));
         };

@@ -52,10 +52,20 @@ export interface IDND_INGREDIENT {
         drop: number;
     };
 }
+
+export const DND_ING_ACTION = (
+    drag: number,
+    drop: number
+): IDND_INGREDIENT => ({
+    type: DND_INGREDIENT,
+    payload: { drag, drop },
+});
+
 export const CLEAN_CONSTRUCTOR = 'CLEAN_CONSTRUCTOR';
 export interface ICLEAN_CONSTRUCTOR {
     readonly type: typeof CLEAN_CONSTRUCTOR;
 }
+
 
 export const dndIngredient = (drag: number, drop: number) => ({
     type: DND_INGREDIENT,

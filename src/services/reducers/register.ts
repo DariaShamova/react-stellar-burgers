@@ -5,7 +5,7 @@ export type TRegisterState = {
     user: TRegister | {};
 };
 
-const initialState: TRegisterState = {
+export const initialState: TRegisterState = {
     success: false,
     user: {},
 };

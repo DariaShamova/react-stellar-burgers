@@ -1,6 +1,5 @@
 import styles from "./pages.module.css";
 import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {getIngredients} from "../services/actions/ingredients";
 import {TIngredient} from "../services/actions/dnd";
@@ -13,23 +12,23 @@ export function IngredientPage() {
     const {ingredients, ingredientsRequest, ingredientsFailed} = useAppSelector(
         (state) => state.ingredients);
 
-    useEffect(
-        () => {
-            // Отправляем экшен-функцию
-            dispatch(getIngredients());
-        },
-        [dispatch]
-    );
-
-    //Используем условный рендеринг для разных состояний хранилища
-    if (ingredientsFailed) {
-        return <p>Произошла ошибка при получении данных</p>
-    } else if (ingredientsRequest) {
-        return <p>Загрузка...</p>
-    }
-
-    console.log(id);
-    console.log(ingredients);
+    // useEffect(
+    //     () => {
+    //         // Отправляем экшен-функцию
+    //         dispatch(getIngredients());
+    //     },
+    //     [dispatch]
+    // );
+    //
+    // //Используем условный рендеринг для разных состояний хранилища
+    // if (ingredientsFailed) {
+    //     return <p>Произошла ошибка при получении данных</p>
+    // } else if (ingredientsRequest) {
+    //     return <p>Загрузка...</p>
+    // }
+    //
+    // console.log(id);
+    // console.log(ingredients);
 
     const item = ingredients.find((item: TIngredient) => item._id === id);
 

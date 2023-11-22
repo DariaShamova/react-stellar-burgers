@@ -1,12 +1,12 @@
 import {LOGIN, LOGOUT, TLoginActions} from "../actions/login";
 
 type TUserState = {
-    login: null | boolean;
+    login: boolean;
     logout: boolean;
 };
 
-const initialState: TUserState = {
-    login: null,
+export const initialState: TUserState = {
+    login: false,
     logout: false,
 };
 

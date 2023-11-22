@@ -1,12 +1,11 @@
 import React, {useMemo, useRef, useEffect, FC} from 'react';
 import styles from "./burger-ingredients.module.css";
 import { Counter, Tab, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import {scrollTo, setTab} from "../../services/actions/tabs";
 import {Link, useLocation} from "react-router-dom";
 import {TIngredient} from "../../services/actions/dnd";
-import {useAppDispatch} from "../../services/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 
 type TProtoIngredient = {
     ingredient: TIngredient;
@@ -15,11 +14,11 @@ type TProtoIngredient = {
 const BurgerIngredient: FC<TProtoIngredient> = ({ingredient}) => {
 
     // Вытаскиваем селектором нужные данные из хранилища
-    const { fillings } = useSelector(
-        (state: any) => state.fillings);
+    const { fillings } = useAppSelector(
+        (state) => state.fillings);
 
-    const { buns } = useSelector(
-        (state: any) => state.buns);
+    const { buns } = useAppSelector(
+        (state) => state.buns);
 
     const [{ opacity }, ref] = useDrag({
         type: 'ingredient',
@@ -34,8 +33,8 @@ const BurgerIngredient: FC<TProtoIngredient> = ({ingredient}) => {
     });
 
     const counter = useMemo ( () =>
-        buns.filter((item: TIngredient) => item._id === ingredient._id).length ||
-        fillings.filter((item: TIngredient) => item._id === ingredient._id).length,
+        buns.filter((item) => item._id === ingredient._id).length ||
+        fillings.filter((item) => item._id === ingredient._id).length,
         [buns, fillings]
     );
 
@@ -66,22 +65,22 @@ export const BurgerIngredients: FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const ingredients = useSelector(
-        (state: any) => state.ingredients.ingredients);
+    const ingredients = useAppSelector(
+        (state) => state.ingredients.ingredients);
 
-    const buns = ingredients.filter((item: TIngredient) => {
+    const buns = ingredients.filter((item) => {
         return item.type === "bun"
     });
 
-    const sauces = ingredients.filter((item: TIngredient) => {
+    const sauces = ingredients.filter((item) => {
         return item.type === "sauce"
     });
 
-    const mains = ingredients.filter((item: TIngredient) => {
+    const mains = ingredients.filter((item) => {
         return item.type === "main"
     });
 
-    const tabsScroll = useSelector((state: any) => state.tabs.next);
+    const tabsScroll = useAppSelector((state) => state.tabs.next);
 
     const bunRef = useRef<HTMLParagraphElement>(null);
     const sauceRef = useRef<HTMLParagraphElement>(null);
@@ -142,7 +141,7 @@ export const BurgerIngredients: FC = () => {
                 <div>
                     <h2 className="text text_type_main-medium pt-10 pb-6" ref={bunRef}>Булки</h2>
                     <ul className={styles.ingredients}>
-                        {buns.map((ingredient: TIngredient) => {
+                        {buns.map((ingredient) => {
                             return (
                                 <BurgerIngredient
                                     ingredient={ingredient}
@@ -155,7 +154,7 @@ export const BurgerIngredients: FC = () => {
                 <div>
                     <h2 className="text text_type_main-medium pt-10 pb-6" ref={sauceRef}>Соусы</h2>
                     <ul className={styles.ingredients}>
-                        {sauces.map((ingredient: TIngredient) => {
+                        {sauces.map((ingredient) => {
                             return (
                                 <BurgerIngredient
                                     ingredient={ingredient}
@@ -168,7 +167,7 @@ export const BurgerIngredients: FC = () => {
                 <div>
                     <h2 className="text text_type_main-medium pt-10 pb-6" ref={mainRef}>Начинки</h2>
                     <ul className={styles.ingredients}>
-                        {mains.map((ingredient: TIngredient) => {
+                        {mains.map((ingredient) => {
                             return (
                                 <BurgerIngredient
                                     ingredient={ingredient}
@@ -187,7 +186,7 @@ export const BurgerIngredients: FC = () => {
 
 const SwitchTabs = () => {
     const dispatch = useAppDispatch();
-    const current = useSelector((state: any) => state.tabs.current);
+    const current = useAppSelector((state) => state.tabs.current);
 
     const setCurrent = (value: string) => {
         dispatch(setTab(value));

@@ -1,14 +1,11 @@
 import styles from "./burger-constructor.module.css";
 import {ConstructorElement, CurrencyIcon, Button, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {FC, useMemo, useRef} from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import React, {Dispatch, FC, SetStateAction, useMemo, useRef} from "react";
 import { useDrop, useDrag } from 'react-dnd';
 import { ADD_FILLING, CHANGE_BUN, DELETE_INGREDIENT, dndIngredient  } from "../../services/actions/dnd";
 import { nanoid } from 'nanoid';
 import { postOrder } from "../../services/actions/order";
-import PropTypes, {number, string} from "prop-types";
-import {ingredientPropType} from "../../utils/prop-types";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {TIngredient} from "../../services/actions/dnd";
 import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 
@@ -85,8 +82,7 @@ const BurgerElement: FC<TBurgerElement> = ({ingredient, index, id}) => {
     )
 }
 
-
-export const BurgerConstructor = () => {
+export const BurgerConstructor: FC = () => {
     const dispatch = useAppDispatch();
     const addFilling = (item: TBurgerElement) => {
         item = {...item, id: nanoid()};
@@ -124,7 +120,7 @@ export const BurgerConstructor = () => {
 
     const fillingsContent = useMemo(
         () => {
-            return fillings.map ((item: TIngredient, index: number) => {
+            return fillings.map ((item, index) => {
                 return (
                     <BurgerElement ingredient={item} key={item.id} index={index} id={item.id} />
                 );
@@ -138,7 +134,7 @@ export const BurgerConstructor = () => {
 
     const bunsContentTop = useMemo(
         () => {
-            return buns.map ((ingredient: TIngredient) => {
+            return buns.map ((ingredient) => {
                 return (
                     <ConstructorElement
                         key={ingredient.id}
@@ -156,7 +152,7 @@ export const BurgerConstructor = () => {
 
     const bunsContentBottom = useMemo(
         () => {
-            return buns.map ((ingredient: TIngredient) => {
+            return buns.map ((ingredient) => {
                 return (
                     <ConstructorElement
                         key={ingredient.id}
@@ -175,12 +171,12 @@ export const BurgerConstructor = () => {
     const totalPrice = useMemo(
         () => {
             const bunsPrice = buns.reduce(
-                function(sum: number, currentItem: TIngredient) {
+                function(sum, currentItem) {
                     return sum + currentItem.price
                 }, 0
             );
             const fillingsPrice = fillings.reduce(
-                function(sum: number, currentItem: TIngredient) {
+                function(sum, currentItem) {
                     return sum + currentItem.price
                 }, 0
             );
@@ -192,23 +188,19 @@ export const BurgerConstructor = () => {
 
     const totalId = useMemo(
         () => {
-            const bunsId =  buns.map((item: TIngredient) => item._id);
-            const fillingsId = fillings.map((item: TIngredient) => item._id);
+            const bunsId =  buns.map((item) => item._id);
+            const fillingsId = fillings.map((item) => item._id);
             return [...bunsId, ...fillingsId]
         },
         [buns, fillings]
     );
 
     const getOrderNumber = () => {
-        dispatch(postOrder(totalId))
+        dispatch(postOrder(totalId));
     }
 
     const orderClick = () => {
-        if(buns.length > 0) {
-            getOrderNumber()
-        } else {
-            console.log("Ошибка: добавьте булку")
-        }
+            if(login) {getOrderNumber()};
     }
 
     // const [, dropConst] = useDrop(() => ({
@@ -217,6 +209,7 @@ export const BurgerConstructor = () => {
     // }));
 
     const login = useAppSelector((state) => state.login.login);
+
 
     return (
         <section className={styles.constructor__wrapper} ref={dropTarget}>
@@ -231,13 +224,9 @@ export const BurgerConstructor = () => {
             </div>
             <div className={styles.order}>
                 <p className='text text_type_digits-medium'>{totalPrice}<CurrencyIcon type="primary"/></p>
-                {/*<Link*/}
-                {/*    to={!login ? "/login" : "/order"}*/}
-                {/*>*/}
-
                 {buns.length > 0 ? (
                     <Link
-                        to={!login ? "/login" : "/order"}
+                        to={!login ? "/login"  : "/order"}
                     >
                         <Button htmlType="button" type="primary" size="medium" onClick={orderClick} disabled={false}>
                             Оформить заказ
@@ -248,14 +237,6 @@ export const BurgerConstructor = () => {
                         Оформить заказ
                     </Button>
                 )}
-
-                {/*    <Link*/}
-                {/*        to={"/order"}*/}
-                {/*    >*/}
-                {/*    <Button htmlType="button" type="primary" size="medium" onClick={orderClick}>*/}
-                {/*        Оформить заказ*/}
-                {/*    </Button>*/}
-                {/*</Link>*/}
 
             </div>
         </section>

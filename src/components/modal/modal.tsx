@@ -37,8 +37,3 @@ export const Modal: FC<PropsWithChildren<TModal>> = ({ children, onClose }) => {
         modalRoot as HTMLDivElement
     );
 }
-
-Modal.propTypes = {
-    children: PropTypes.element.isRequired,
-    onClose: PropTypes.func.isRequired,
-}

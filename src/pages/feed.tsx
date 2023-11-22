@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styles from "./pages.module.css";
 import { TOrderComponents } from "../services/types/types";
 import { Link, useLocation } from "react-router-dom";
@@ -23,15 +22,12 @@ export const FeedPage: FC = () => {
     const order = useAppSelector((state) => state.websocket.orders);
     const total = useAppSelector((state) => state.websocket.total);
     const totalToday = useAppSelector((state) => state.websocket.totalToday);
-    const location = useLocation();
     useEffect(() => {
-        if (location.pathname !== "/feed") {
+        dispatch(WS_START_ACTION());
+        return () => {
             dispatch(WS_STOP_ACTION());
-        } else {
-            dispatch(WS_START_ACTION());
-            return () => {};
-        }
-    }, [location, dispatch]);
+        };
+    }, [dispatch]);
 
     return (
         order && (
@@ -118,17 +114,15 @@ export const Cards: FC<TCards> = ({ card }) => {
         return ingResult.reduce((acc, item) => acc + item.price, 0);
     };
 
+
     return (
         <div>
-            <Link
-                to={{
-                    pathname:
-                        location.pathname === "/feed"
-                            ? `/feed/${card._id}`
-                            : `/profile/orders/${card._id}`,
-                }}
-                className={styles.card}
-            >
+            <Link to={location.pathname === "/profile/orders"
+                    ? `/profile/orders/${card._id}`
+                    : `/feed/${card._id}`} state={{ background: location }} className={styles.card}>
+
+                {/*<Link to={`/feed/${card._id}`} state={{ background: location }} className={styles.card}>*/}
+
                 <div className={styles.card__title}>
                     <span className="text text_type_main-default">
                     {"# " + card.number}
@@ -140,8 +134,8 @@ export const Cards: FC<TCards> = ({ card }) => {
                 <span className="text text_type_main-medium">{card.name}</span>
                 <div className={styles.card__center}>
                     <div className={styles.card__item}>
-                        {ingResult.slice(0, 5).map((el) => (
-                            <div key={nanoid()} className={styles.card__wrapper}>
+                        {ingResult.slice(0, 5).map((el, index) => (
+                            <div key={index} className={styles.card__wrapper}>
                                 <img className={styles.card__image} src={el.image_mobile} />
                             </div>
                         ))}

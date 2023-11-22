@@ -22,7 +22,7 @@ export const ProfileHistory: FC = () => {
             <div>
                 <div className={styles.history__wrapper}>
                     <div className={styles.feed__scroll + " custom-scroll"}>
-                        {profileOrders.map((card: any) => {
+                        {profileOrders.map((card) => {
                             return <Cards card={card} key={card._id} />;
                         })}
                     </div>

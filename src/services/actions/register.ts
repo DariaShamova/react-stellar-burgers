@@ -1,4 +1,5 @@
 import {registrationRequest} from "../api";
+import {ThunkFunc} from "../hooks/hooks";
 export const REGISTER = "REGISTER";
 
 export type TRegister = {
@@ -16,8 +17,8 @@ export interface IREGISTER_ACTION {
     readonly payload: TPayloadRegister;
 }
 
-export function register(user: TRegister) {
-    return function (dispatch: any) {
+export const register: ThunkFunc = (user: TRegister) => {
+    return function (dispatch) {
         registrationRequest(user)
             .then(res => {
                 dispatch({

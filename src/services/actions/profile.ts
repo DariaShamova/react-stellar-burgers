@@ -1,4 +1,5 @@
 import {getProfileRequest, sendProfileRequest} from "../api";
+import {ThunkFunc} from "../hooks/hooks";
 export const GET_PROFILE_INFO = "GET_PROFILE_INFO";
 export const SEND_PROFILE_INFO = "SEND_PROFILE_INFO";
 
@@ -23,8 +24,8 @@ export interface ISEND_PROFILE_INFO_ACTION {
 
 export type TProfileActions = IGET_PROFILE_INFO_ACTION | ISEND_PROFILE_INFO_ACTION;
 
-export function getProfileInfo() {
-    return function (dispatch: any) {
+export const getProfileInfo: ThunkFunc = () => {
+    return function (dispatch) {
         getProfileRequest()
             .then(res => {
                 dispatch({
@@ -34,9 +35,8 @@ export function getProfileInfo() {
             })
     }
 }
-
-export function sendProfileInfo(name: string, email: string, password: string) {
-    return function (dispatch: any) {
+export const sendProfileInfo: ThunkFunc = (name: string, email: string, password: string) => {
+    return function (dispatch) {
         sendProfileRequest(name, email, password)
             .then(res => {
                 dispatch({

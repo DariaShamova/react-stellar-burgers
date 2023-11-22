@@ -1,15 +1,14 @@
 import styles from "./pages.module.css";
-import { FC, useMemo } from "react";
-
+import {FC, useEffect, useMemo} from "react";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { getCookie } from "../utils/cookies";
 import { useAppSelector, useAppDispatch } from "../services/hooks/hooks";
+import {WS_START_PROFILE_ACTION} from "../services/actions/websocket";
 
 export const FeedProfileDetails: FC = () => {
-    const dispatch = useAppDispatch();
     const location = useLocation();
 
     const ingredients = useAppSelector(
@@ -39,8 +38,17 @@ export const FeedProfileDetails: FC = () => {
         0
     );
 
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        const token = getCookie("access");
+        dispatch(WS_START_PROFILE_ACTION(token));
+    }, []);
+
+    if (!orderData) {
+            return <p className={styles.text__center}>Загрузка данных...</p>
+        }
+
     return (
-        ingredients && (
         <div className={styles.details__wrapper}>
             <div className={styles.details__title}>
         <span className={styles.details__subtitle + " text_type_digits-default"}>
@@ -73,7 +81,7 @@ export const FeedProfileDetails: FC = () => {
                                             styles.details__grow + " text text_type_digits-default mr-2"
                                         }
                                     >
-                                        {ordPrice?.filter((it: any) => it._id === el._id).length}x
+                                        {ordPrice?.filter((it: any) => it?._id === el._id).length}x
                                         {el.price}
                                     </div>
                                     <CurrencyIcon type="primary" />
@@ -83,7 +91,7 @@ export const FeedProfileDetails: FC = () => {
                 </div>
             </div>
             <div className={styles.details__price + " mt-10"}>
-                <FormattedDate date={new Date(orderData.createdAt)} />
+                <FormattedDate date={new Date(orderData?.createdAt)} />
                 <div className={styles.card__center}>
                     <div className="text text_type_digits-default mr-2">
                         {reducePrice}
@@ -92,5 +100,5 @@ export const FeedProfileDetails: FC = () => {
                 </div>
             </div>
         </div>
-    ));
+    );
 };

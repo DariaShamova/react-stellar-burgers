@@ -14,7 +14,7 @@ type TOrderState = {
     postOrderRequest: boolean
 };
 
-const orderInitialState: TOrderState = {
+export const orderInitialState: TOrderState = {
     postOrderFailed: false,
     order: null,
     postOrderRequest: false

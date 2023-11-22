@@ -2,7 +2,6 @@ import React, {FormEventHandler, useState} from "react";
 import styles from "./pages.module.css";
 import {EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Navigate} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import {register} from "../services/actions/register";
 import {useAppDispatch, useAppSelector} from "../services/hooks/hooks";
 

@@ -1,5 +1,6 @@
 import {RESTORE_FORGOT_PASS} from "./forgot-pass";
 import {resetPasswordRequest} from "../api";
+import {ThunkFunc} from "../hooks/hooks";
 export const RESET_PASS = 'RESET_PASS';
 
 export interface IRESET_PASS_ACTION {
@@ -7,8 +8,8 @@ export interface IRESET_PASS_ACTION {
     payload: boolean;
 }
 
-export function resetPassword() {
-    return function (dispatch: any) {
+export const resetPassword: ThunkFunc = () => {
+    return function (dispatch) {
         resetPasswordRequest()
             .then(res => {
                 dispatch({
