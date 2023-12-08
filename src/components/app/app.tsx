@@ -66,6 +66,7 @@ function App() {
         <div className={styles.app}>
             <AppHeader />
             <Routes location={background || location}>
+                <Route path="/react-stellar-burgers/" element={<Home/>} />
                 <Route path="/" element={<Home/>} />
                 <Route path="*" element={<NotFound404 />} />
                 <Route path="/login" element={<LoginPage />} />
